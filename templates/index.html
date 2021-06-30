@@ -1,0 +1,93 @@
+{% extends "base.html" %}{% block head %}
+<title>FirstPage</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{% endblock %} {% block body %}
+<form action="{{ url_for('ClassifyText') }}" method="POST" onsubmit="check({{ result }})">
+    <div>
+        <select name="model_name" class="form-select">
+            <!-- <option>SVM for Arabic</option> -->
+            <option>SVM for Hebrew</option>
+            <!-- <option>BERT for Hebrew</option> -->
+            <option>BERT for Arabic</option>
+
+        </select>
+    </div>
+
+    <div class="userInputClassfiy">
+        <h3>Please, enter a text</hr3>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">Tweet</span>
+                </div>
+                <input name="tweet_content" dir="rtl" type="text" class="form-control" aria-describedby="addon-wrapping">
+                <br>
+
+            </div>
+            <button type="submit" class="btn btn-dark marg" name="classifyTweet"> classify </button>
+    </div>
+</form>
+<hr>
+<form action="{{ url_for('classifyProfile') }}" method="POST">
+    <div>
+        <select name="model_name" class="form-select">
+            <!-- <option>SVM for Arabic</option> -->
+            <option>SVM for Hebrew</option>
+            <!-- <option>BERT for Hebrew</option> -->
+            <option>BERT for Arabic</option>
+
+        </select>
+    </div>
+
+    <div class="profileClassify">
+        <h3>Please, specify a Twitter account for analysis</hr3>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">url:</span>
+                </div>
+                <input type="text" name="profile_name" class="form-control " aria-describedby="addon-wrapping">
+            </div>
+            <button type="submit" class="btn btn-dark">get result</button>
+    </div>
+</form>
+<hr>
+
+<form id="upload-form" action="{{ url_for('classifyDB') }}" method="POST" enctype="multipart/form-data">
+    <div>
+        <select name="model_name" class="form-select">
+            <!-- <option>SVM for Arabic</option> -->
+            <option>SVM for Hebrew</option>
+            <!-- <option>BERT for Hebrew</option> -->
+            <option>BERT for Arabic</option>
+        </select>
+        <br>
+    </div>
+    <div>
+        <h3>upload database for analysis</h3>
+        <input id="file-picker" type="file" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple>
+        <div id="msg"></div>
+        <input type="submit" class="btn btn-dark" value="Upload" id="upload-button">
+    </div>
+</form>
+
+<script>
+    $("#file-picker").change(function() {
+
+        var input = document.getElementById('file-picker');
+
+        for (var i = 0; i < input.files.length; i++) {
+            var ext = input.files[i].name.substring(input.files[i].name.lastIndexOf('.') + 1).toLowerCase()
+
+            if ((ext == 'xlsx') || (ext == 'csv')) {
+                $("#msg").text("Files are supported")
+            } else {
+                $("#msg").text("Files are NOT supported")
+                document.getElementById("file-picker").value = "";
+            }
+
+        }
+
+
+    });
+</script>
+
+{% endblock %}
