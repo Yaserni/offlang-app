@@ -6,8 +6,8 @@ import joblib
 
 def load_svm_model():
     # Load SVM model
-    model = joblib.load(open( "models\\finalized_model_he.sav"))
-    vectorizer = joblib.load(open("models\\vectorizer_he.sav"))
+    model = joblib.load("finalized_model_he.sav")
+    vectorizer = joblib.load("vectorizer_he.sav")
     return model, vectorizer
 # server\src\models\finalized_model_he.sav
 # -----------------------------------  Preprocessing -------------------------------------
@@ -74,7 +74,6 @@ def classify_DB(filepath):
     print('the number of offensive tweets in the Database = ',counter, '\n the number of neutral tweets in the Database = ' , db_length - counter)
 
     return counter, db_length - counter
-
 
 
 model, vectorizer = load_svm_model()
