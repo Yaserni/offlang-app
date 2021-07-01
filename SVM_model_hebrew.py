@@ -35,7 +35,7 @@ def remove_spaces(data):
 
 # -----------------------------------  End Preprocessing -------------------------------------
 
-# def predict(text):
+#  predict(text):
 def predict(text,model,vectorizer):
     df = []
     df.append(text)
