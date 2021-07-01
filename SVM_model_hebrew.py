@@ -6,8 +6,8 @@ import joblib
 
 def load_svm_model():
     # Load SVM model
-    model = joblib.load("finalized_model_he.sav")
-    vectorizer = joblib.load("vectorizer_he.sav")
+    model = joblib.load(open("finalized_model_he.sav","rb"))
+    vectorizer = joblib.load(open("vectorizer_he.sav","rb"))
     return model, vectorizer
 # server\src\models\finalized_model_he.sav
 # -----------------------------------  Preprocessing -------------------------------------
