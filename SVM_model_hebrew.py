@@ -44,6 +44,7 @@ def remove_spaces(data):
 # -----------------------------------  End Preprocessing -------------------------------------
 
 def predict(text):
+    model, vectorizer = load_svm_model()
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Post'])
@@ -61,7 +62,7 @@ def predict(text):
 
 def classify_DB(filepath):
     print('Loading Database')
-
+    
     db = rsf.readFileFunction(filepath) # read file function - more general - it works according to the file (excel or csv)
     print('End loading')
     counter = 0 # the counter will give us the number of racist tweets
@@ -75,5 +76,3 @@ def classify_DB(filepath):
 
     return counter, db_length - counter
 
-
-model, vectorizer = load_svm_model()
