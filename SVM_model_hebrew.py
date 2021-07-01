@@ -6,8 +6,8 @@ import joblib
 
 def load_svm_model():
     # Load SVM model
-    model = joblib.load(open("finalized_model_he.sav","rb"))
-    vectorizer = joblib.load(open("vectorizer_he.sav","rb"))
+    model = joblib.load("finalized_model_he.sav")
+    vectorizer = joblib.load("vectorizer_he.sav")
     return model, vectorizer
 # server\src\models\finalized_model_he.sav
 # -----------------------------------  Preprocessing -------------------------------------
@@ -44,11 +44,10 @@ def remove_spaces(data):
 # -----------------------------------  End Preprocessing -------------------------------------
 
 def predict(text):
-    model, vectorizer = load_svm_model()
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Post'])
-    text = clean(df)
+    # text = clean(df)
     text = text['Post'].iloc[0]
     if len(text.split()) < 2:
         return [0] 
@@ -62,7 +61,7 @@ def predict(text):
 
 def classify_DB(filepath):
     print('Loading Database')
-    
+
     db = rsf.readFileFunction(filepath) # read file function - more general - it works according to the file (excel or csv)
     print('End loading')
     counter = 0 # the counter will give us the number of racist tweets
@@ -76,3 +75,5 @@ def classify_DB(filepath):
 
     return counter, db_length - counter
 
+
+model, vectorizer = load_svm_model()
