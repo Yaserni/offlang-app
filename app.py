@@ -35,7 +35,7 @@ def clssifydatabase(filepath):
 
 @app.route("/")
 def index():
-    return render_template('index.html',x)
+    return render_template('index.html')
 
 
 @app.route("/home", methods=['GET', 'POST'])
