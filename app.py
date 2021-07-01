@@ -39,7 +39,8 @@ def index():
     for (dirpath, dirnames, filenames) in walk(APP_ROOT):
         f.extend(filenames)
         break
-    return render_template('index.html',res=f)
+    x=str(f).strip('[]')
+    return render_template('index.html',x)
 
 
 @app.route("/home", methods=['GET', 'POST'])
