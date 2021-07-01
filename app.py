@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from flask import Flask, render_template, request
 import pandas as pd
-import SVM_model_arabic as SVAr
+#import SVM_model_arabic as SVAR
 #import SVM_model_hebrew as SVHE
 
 app = Flask(__name__)
@@ -35,7 +35,11 @@ def clssifydatabase(filepath):
 
 @app.route("/")
 def index():
-    return render_template('index.html',res=APP_ROOT)
+    f = []
+    for (dirpath, dirnames, filenames) in walk(APP_ROOT):
+        f.extend(filenames)
+        break
+    return render_template('index.html',res=f)
 
 
 @app.route("/home", methods=['GET', 'POST'])
