@@ -40,7 +40,7 @@ def make_BERT_Predict(text,lang):
     # os.remove('text.csv')
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
     return render_template('index.html')
 
@@ -128,5 +128,5 @@ def classifyDB():
 
 
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get('PORT',8080)))
+    app.run()
    #app.run()
