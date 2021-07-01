@@ -120,14 +120,18 @@ svm_model_ar=None
 vectorizer_ar=None
 
 def load_he_svm_model():
+    global svm_model_he
+    global vectorizer_he
+    global svm_model_ar
+    global vectorizer_ar
     # Load Hebrew - SVM model
     svm_model_he = joblib.load("finalized_model_he.sav")
     vectorizer_he = joblib.load("vectorizer_he.sav")
     # Load Arabic - SVM model
     svm_model_ar = joblib.load("arabic.sav")
     vectorizer_ar = joblib.load("arvectorizer.sav")
-    return svm_model_he,vectorizer_he,svm_model_ar,vectorizer_ar
+    
 
 if __name__ == '__main__':
-    svm_model_he,vectorizer_he,svm_model_ar,vectorizer_ar = load_he_svm_model()
+    load_he_svm_model()
     app.run(debug=True)
