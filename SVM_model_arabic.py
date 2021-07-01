@@ -125,7 +125,6 @@ def remove_emoji(string):
 
 
 # -----------------------------------  End Preprocessing -------------------------------------
-model, vectorizer = load_svm_model()
 
 
 def predict(text):
@@ -157,3 +156,6 @@ def classify_DB(filepath):
     print('the number of offensive tweets in the Database = ',counter, '\n the number of neutral tweets in the Database = ' , db_length - counter)
 
     return counter, db_length - counter
+
+
+# model, vectorizer = load_svm_model()

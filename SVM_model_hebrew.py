@@ -6,8 +6,8 @@ import joblib
 
 def load_svm_model():
     # Load SVM model
-    model = joblib.load("models\\finalized_model_he.sav")
-    vectorizer = joblib.load("models\\vectorizer_he.sav")
+    model = joblib.load("..\\models\\finalized_model_he.sav")
+    vectorizer = joblib.load("..\\models\\vectorizer_he.sav")
     return model, vectorizer
 # server\src\models\finalized_model_he.sav
 # -----------------------------------  Preprocessing -------------------------------------
@@ -42,8 +42,6 @@ def remove_spaces(data):
 
 
 # -----------------------------------  End Preprocessing -------------------------------------
-# model, vectorizer = load2()
-model, vectorizer = load_svm_model()
 
 def predict(text):
     df = []
@@ -76,3 +74,7 @@ def classify_DB(filepath):
     print('the number of offensive tweets in the Database = ',counter, '\n the number of neutral tweets in the Database = ' , db_length - counter)
 
     return counter, db_length - counter
+
+
+
+model, vectorizer = load_svm_model()
