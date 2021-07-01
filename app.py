@@ -1,9 +1,10 @@
+from io import TextIOWrapper
 import pandas as pd
 import os
 from flask import Flask, render_template, request
 import pandas as pd
-#import SVM_model_arabic as SVAR
-#import SVM_model_hebrew as SVHE
+import SVM_model_arabic as SVMAR
+import SVM_model_hebrew as SVMHE
 
 app = Flask(__name__)
 
@@ -48,12 +49,19 @@ def ClassifyText():
     model_name = request.form['model_name']
     tweet_content = request.form['tweet_content']
     
-    if model_name == 'SVM for Hebrew':
-        result = SVHE.predict(tweet_content)
-        result = 'Not Offensive' if (result == 0) else 'Offensive'
-   
-    res = 'the tweet ' + str(tweet_content) + ' is ' + str(result)
+    if model_name == 'Hebrew':
+        print(tweet_content)
+        result = SVMHE.predict(tweet_content)
+        result = 'Not Offensive' if (result == [0]) else 'Offensive'
+
+    if model_name == 'Arabic':
+        print(tweet_content)
+        result = SVMAR.predict(tweet_content)
+        result = 'Not Offensive' if (result == [0]) else 'Offensive'
+
+    res = 'The tweet ' + str(tweet_content) + ' is ' + str(result)
     return render_template('prediction.html', result=res)
+
 
 
 @ app.route('/classifyProfile', methods=['POST'])
@@ -108,4 +116,4 @@ def classifyDB():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

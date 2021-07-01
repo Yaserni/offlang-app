@@ -51,7 +51,7 @@ def predict(text):
     df = pd.DataFrame(df, columns=['Post'])
     text = clean(df)
     text = text['Post'].iloc[0]
-    if len(text.split()) < 1:
+    if len(text.split()) < 2:
         return [0] 
 
     vec = vectorizer.transform([text]).toarray()

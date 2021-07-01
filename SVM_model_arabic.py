@@ -137,9 +137,10 @@ def predict(text):
     if len(text.split()) < 1:
         return [0] 
     vec = vectorizer.transform([text]).toarray()
+    print(text)
     answer = model.predict(vec)
-    if(answer[0]==1):
-        print(text)
+    # if(answer[0]==1):
+    print(answer)
     return answer
 
 def classify_DB(filepath):
