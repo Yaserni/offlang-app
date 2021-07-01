@@ -1,4 +1,3 @@
-from io import TextIOWrapper
 import pandas as pd
 import os
 from flask import Flask, render_template, request
@@ -117,11 +116,12 @@ global svm_model_ar
 global vectorizer_ar
 
 def load_he_svm_model():
-    # Load SVM model
+    # Load Hebrew - SVM model
     global svm_model_he
     global vectorizer_he
     svm_model_he = joblib.load("finalized_model_he.sav")
     vectorizer_he = joblib.load("vectorizer_he.sav")
+    # Load Arabic - SVM model
     global svm_model_ar
     global vectorizer_ar
     svm_model_ar = joblib.load("arabic.sav")
