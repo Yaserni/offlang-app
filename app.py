@@ -117,18 +117,18 @@ global vectorizer_ar
 
 def load_he_svm_model():
     # Load Hebrew - SVM model
-    # global svm_model_he
-    # global vectorizer_he
+    global svm_model_he
+    global vectorizer_he
     
     
-    # svm_model_he = joblib.load("finalized_model_he.sav")
-    # vectorizer_he = joblib.load("vectorizer_he.sav")
+    svm_model_he = joblib.load("finalized_model_he.sav")
+    vectorizer_he = joblib.load("vectorizer_he.sav")
     # Load Arabic - SVM model
     
-    global svm_model_ar
-    global vectorizer_ar
-    svm_model_ar = joblib.load("arabic.sav")
-    vectorizer_ar = joblib.load("arvectorizer.sav")
+    # global svm_model_ar
+    # global vectorizer_ar
+    # svm_model_ar = joblib.load("arabic.sav")
+    # vectorizer_ar = joblib.load("arvectorizer.sav")
     # return model, vectorizer
 
 
