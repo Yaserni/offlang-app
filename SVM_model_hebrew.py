@@ -1,14 +1,12 @@
 import ReadSheetsFiles as rsf
 import re
 import pandas as pd
-import joblib
-# ---------------
 
-def load_svm_model():
-    # Load SVM model
-    model = joblib.load("finalized_model_he.sav")
-    vectorizer = joblib.load("vectorizer_he.sav")
-    return model, vectorizer
+# def load_svm_model():
+#     # Load SVM model
+#     model = joblib.load("finalized_model_he.sav")
+#     vectorizer = joblib.load("vectorizer_he.sav")
+#     return model, vectorizer
 # server\src\models\finalized_model_he.sav
 # -----------------------------------  Preprocessing -------------------------------------
 
@@ -43,7 +41,8 @@ def remove_spaces(data):
 
 # -----------------------------------  End Preprocessing -------------------------------------
 
-def predict(text):
+# def predict(text):
+def predict(text,model,vectorizer):
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Post'])

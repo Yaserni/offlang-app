@@ -7,7 +7,6 @@ import pandas as pd
 
 def load_svm_model():
     # Load SVM model
-    #                    server\\src\\models\\finalized_model.sav
     model = joblib.load("arabic.sav")
     vectorizer = joblib.load("arvectorizer.sav")
     return model, vectorizer
@@ -127,13 +126,13 @@ def remove_emoji(string):
 # -----------------------------------  End Preprocessing -------------------------------------
 
 
-def predict(text):
+def predict(text,model,vectorizer):
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Tweet'])
     text = clean(df)
     text = remove_emoji(text['Tweet'].iloc[0])
-    if len(text.split()) < 1:
+    if len(text.split()) < 2:
         return [0] 
     vec = vectorizer.transform([text]).toarray()
     print(text)
