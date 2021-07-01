@@ -3,7 +3,9 @@ import os
 from flask import Flask, render_template, request
 import absorbProfile as ap  # abosrbProfile - in order to absort tweets from profile
 import SVM_model_hebrew as svm_model_he
-import load_arabic_bert as arabic_bert
+import ReadSheetsFiles as rsf
+import pandas as pd
+
 app = Flask(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -57,10 +59,7 @@ def ClassifyText():
         result = svm_model_he.predict(tweet_content)
         result = 'Not Offensive' if (result == 0) else 'Offensive'
     
-    elif model_name == 'BERT for Arabic':
-        result = arabic_bert.predictSingleTweet(tweet_content)
-        # result = pd.read_csv("result.csv")
-        result = 'Not Offensive' if (result['val'].iloc[0] == 0) else 'Offensive'
+   
     
     res = 'the tweet ' + str(tweet_content) + ' is ' + str(result)
     return render_template('prediction.html', result=res)
@@ -130,4 +129,4 @@ def classifyDB():
 
 if __name__ == '__main__':
     # app.run(debug=True,host='127.0.0.1',port=int(os.environ.get('PORT',8080)))
-    app.run(debug=True,host='127.0.0.1',port=8080)
+    app.run(debug=True)
