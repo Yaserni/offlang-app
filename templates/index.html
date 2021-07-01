@@ -2,7 +2,7 @@
 <title>FirstPage</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 {% endblock %} {% block body %}
-<span>{{res}} </span>
+<span>{{x}} </span>
 <form action="{{ url_for('ClassifyText') }}" method="POST" onsubmit="check({{ result }})">
     <div>
         <select name="model_name" class="form-select">
