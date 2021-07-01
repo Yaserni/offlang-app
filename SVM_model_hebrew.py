@@ -47,7 +47,7 @@ def predict(text):
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Post'])
-    # text = clean(df)
+    text = clean(df)
     text = text['Post'].iloc[0]
     if len(text.split()) < 2:
         return [0] 
@@ -76,4 +76,4 @@ def classify_DB(filepath):
     return counter, db_length - counter
 
 
-model, vectorizer = load_svm_model()
+# model, vectorizer = load_svm_model()

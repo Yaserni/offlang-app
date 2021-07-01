@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 import SVM_model_arabic as SVMAR
 import SVM_model_hebrew as SVMHE
+import joblib
 
 app = Flask(__name__)
 
@@ -110,10 +111,18 @@ def classifyDB():
     print(destination)   
     return clssifydatabase(destination) # run the models on the uploaded model
 
+global svm_model_he
+global vectorizer_he
 
-
-
+def load_he_svm_model():
+    # Load SVM model
+    global svm_model_he
+    global vectorizer_he
+    svm_model_he = joblib.load("finalized_model_he.sav")
+    vectorizer_he = joblib.load("vectorizer_he.sav")
+    # return model, vectorizer
 
 
 if __name__ == '__main__':
+    load_he_svm_model()
     app.run(debug=True)
