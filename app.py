@@ -50,12 +50,16 @@ def ClassifyText():
     tweet_content = request.form['tweet_content']
     
     if model_name == 'Hebrew':
+        svm_model_he = joblib.load("finalized_model_he.sav")
+        vectorizer_he = joblib.load("vectorizer_he.sav")
         #print(tweet_content)
         result = SVMHE.predict(tweet_content,svm_model_he,vectorizer_he)
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
     if model_name == 'Arabic':
         #print(tweet_content)
+        svm_model_ar = joblib.load("arabic.sav")
+        vectorizer_ar = joblib.load("arvectorizer.sav")
         result = SVMAR.predict(tweet_content,svm_model_ar,vectorizer_ar)
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
