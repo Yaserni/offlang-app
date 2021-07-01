@@ -77,4 +77,4 @@ def classify_DB(filepath):
 
 
 
-model, vectorizer = load_svm_model()
+# model, vectorizer = load_svm_model()
