@@ -8,8 +8,8 @@ import pandas as pd
 def load_svm_model():
     # Load SVM model
     #                    server\\src\\models\\finalized_model.sav
-    model = joblib.load(".\\server\\src\\models\\arabic.sav")
-    vectorizer = joblib.load(".\\server\\src\\models\\arvectorizer.sav")
+    model = joblib.load("..\\models\\arabic.sav")
+    vectorizer = joblib.load("..\\models\\arvectorizer.sav")
     return model, vectorizer
 
 # -----------------------------------  Preprocessing -------------------------------------

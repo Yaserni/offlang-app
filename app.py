@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from flask import Flask, render_template, request
 import pandas as pd
-#import SVM_model_arabic as SVAR
+import SVM_model_arabic as SVAR
 #import SVM_model_hebrew as SVHE
 
 app = Flask(__name__)
