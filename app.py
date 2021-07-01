@@ -50,17 +50,17 @@ def ClassifyText():
     tweet_content = request.form['tweet_content']
     
     if model_name == 'Hebrew':
-        #svm_model_he = joblib.load("finalized_model_he.sav")
-        #vectorizer_he = joblib.load("vectorizer_he.sav")
-        #print(tweet_content)
+        svm_model_he = joblib.load("finalized_model_he.sav")
+        vectorizer_he = joblib.load("vectorizer_he.sav")
         result = SVMHE.predict(tweet_content,svm_model_he,vectorizer_he)
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
     if model_name == 'Arabic':
-        #print(tweet_content)
-        #svm_model_ar = joblib.load("arabic.sav")
-        #vectorizer_ar = joblib.load("arvectorizer.sav")
-        result = SVMAR.predict(tweet_content,svm_model_ar,vectorizer_ar)
+        # svm_model_ar = joblib.load("arabic.sav")
+        # vectorizer_ar = joblib.load("arvectorizer.sav")
+        # result = SVMAR.predict(tweet_content,svm_model_ar,vectorizer_ar)
+        result = SVMAR.predict(tweet_content)
+        
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
     res = 'The tweet ' + str(tweet_content) + ' is ' + str(result)
@@ -114,24 +114,9 @@ def classifyDB():
     print(destination)   
     return clssifydatabase(destination) # run the models on the uploaded model
 
-svm_model_he=None
-vectorizer_he=None
-svm_model_ar=None
-vectorizer_ar=None
 
-def load_he_svm_model():
-    global svm_model_he
-    global vectorizer_he
-    global svm_model_ar
-    global vectorizer_ar
-    # Load Hebrew - SVM model
-    svm_model_he = joblib.load("finalized_model_he.sav")
-    vectorizer_he = joblib.load("vectorizer_he.sav")
-    # Load Arabic - SVM model
-    svm_model_ar = joblib.load("arabic.sav")
-    vectorizer_ar = joblib.load("arvectorizer.sav")
-    
+
+   
 
 if __name__ == '__main__':
-    load_he_svm_model()
-    app.run(debug=True)
+   app.run(debug=True)

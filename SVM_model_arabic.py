@@ -126,7 +126,8 @@ def remove_emoji(string):
 # -----------------------------------  End Preprocessing -------------------------------------
 
 
-def predict(text,model,vectorizer):
+#def predict(text,model,vectorizer):
+def predict(text):
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Tweet'])
@@ -157,4 +158,4 @@ def classify_DB(filepath):
     return counter, db_length - counter
 
 
-# model, vectorizer = load_svm_model()
+model, vectorizer = load_svm_model()
