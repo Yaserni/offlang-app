@@ -1,9 +1,9 @@
 import pandas as pd
 import os
 from flask import Flask, render_template, request
-import absorbProfile as ap  # abosrbProfile - in order to absort tweets from profile
-import SVM_model_hebrew as svm_model_he
-import ReadSheetsFiles as rsf
+#import absorbProfile as ap  # abosrbProfile - in order to absort tweets from profile
+#import SVM_model_hebrew as svm_model_he
+#import ReadSheetsFiles as rsf
 import pandas as pd
 
 app = Flask(__name__)
