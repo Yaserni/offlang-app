@@ -35,11 +35,6 @@ def clssifydatabase(filepath):
 
 @app.route("/")
 def index():
-    f = []
-    for (dirpath, dirnames, filenames) in walk("/app"):
-        f.extend(filenames)
-        break
-    x=str(f).strip('[]')
     return render_template('index.html',x)
 
 
