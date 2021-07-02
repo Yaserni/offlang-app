@@ -4,10 +4,8 @@
 {% endblock %} {% block body %}
 <form action="{{ url_for('ClassifyText') }}" method="POST">
     <div>
-        <select name="model_name" class="form-select">
-            <!-- <option>SVM for Arabic</option> -->
+        <select onclick="fulldef(this)" name="model_name" class="form-select">
             <option>Hebrew</option>
-            <!-- <option>BERT for Hebrew</option> -->
             <option>Arabic</option>
 
         </select>
@@ -19,7 +17,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">Tweet</span>
                 </div>
-                <input name="tweet_content" dir="rtl" type="text" class="form-control" aria-describedby="addon-wrapping" required>
+                <input id="inputClass" name="tweet_content" dir="rtl" type="text" class="form-control"
+                    aria-describedby="addon-wrapping" required>
                 <br>
 
             </div>
@@ -29,12 +28,9 @@
 <hr>
 <form action="{{ url_for('classifyProfile') }}" method="POST">
     <div>
-        <select name="model_name" class="form-select">
-            <!-- <option>SVM for Arabic</option> -->
+        <select onclick="fulldef_user(this)" name="model_name" class="form-select">
             <option>Hebrew</option>
-            <!-- <option>BERT for Hebrew</option> -->
             <option>Arabic</option>
-
         </select>
     </div>
 
@@ -44,7 +40,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">username:</span>
                 </div>
-                <input type="text" name="profile_name" class="form-control " aria-describedby="addon-wrapping" required>
+                <input id="prof" type="text" name="profile_name" class="form-control " aria-describedby="addon-wrapping"
+                    required>
             </div>
             <button type="submit" class="btn btn-dark">get result</button>
     </div>
@@ -54,23 +51,49 @@
 <form id="upload-form" action="{{ url_for('classifyDB') }}" method="POST" enctype="multipart/form-data">
     <div>
         <select name="model_name" class="form-select">
-            <!-- <option>SVM for Arabic</option> -->
             <option>Hebrew</option>
-            <!-- <option>BERT for Hebrew</option> -->
             <option>Arabic</option>
         </select>
         <br>
     </div>
     <div>
         <h3>Upload dataset(xlsx) for analysis </h3>
-        <input id="file-picker" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple>
+        <input id="file-picker" type="file" name="file"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            multiple>
         <div id="msg"></div>
         <input type="submit" class="btn btn-dark" value="Upload" id="upload-button" disabled>
     </div>
 </form>
 
 <script>
-    $("#file-picker").change(function() {
+    function fulldef_user(t) {
+        if ($(t).val() === "Hebrew") {
+            $("#prof").val("netanyahu")
+        }
+        else{
+            $("#prof").val("AlsisiOfficial")
+
+        }
+    }
+
+    function fulldef(t) {
+        if ($(t).val() === "Arabic") {
+            $("#inputClass").val("اهلا وسهلا في الموقع ")
+        }
+        else {
+            $("#inputClass").val("ברוכים הבאים")
+
+        }
+
+
+    }
+
+</script>
+
+
+<script>
+    $("#file-picker").change(function () {
 
         var input = document.getElementById('file-picker');
 
@@ -90,6 +113,6 @@
 
 
     });
-</script>
 
+</script>
 {% endblock %}
