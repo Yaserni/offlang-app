@@ -34,8 +34,6 @@ def clssifydatabase(filepath):
 
 @app.route("/")
 def index():
-    # target = os.path.join(APP_ROOT, 'uploads/classified.xlsx')
-    # if os.path.isfile(target):
     try:
         os.remove('uploads/classified.xlsx')
     except:
@@ -45,6 +43,10 @@ def index():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
+    try:
+        os.remove('uploads/classified.xlsx')
+    except:
+        print("There are no classified File")
     return render_template('index.html')
 
 
@@ -122,6 +124,10 @@ def download():
     return send_file(uploads, as_attachment=True)
 
 if __name__ == '__main__':
-   app.run(debug=True)
+    try:
+        os.remove('uploads/classified.xlsx')
+    except:
+        print("There are no classified File")
+    app.run(debug=True)
 
 
