@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block head %}
-<title>Prediction</title>
+<title>ClassifyText</title>
 {% endblock %} {% block body %}
-<br> {{ result }}
-<a href="{{ url_for('download') }}">Facture</a>
+<br> The sentence [{{ result[0] }}] is {{result[1]}}
 <br> {% endblock %}

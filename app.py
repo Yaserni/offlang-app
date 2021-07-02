@@ -1,3 +1,5 @@
+import collections
+import re
 from flask.helpers import  send_file
 import absorbProfile as absorbprofile
 import os
@@ -23,9 +25,8 @@ def clssifydatabase(filepath):
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
 
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
-    result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
-    # os.remove(filepath)
-    return render_template('prediction.html', result=result)
+    result = [neutral_percent, 100 - neutral_percent]
+    return render_template('classifyDB.html', result=result)
     
 
 
@@ -33,6 +34,12 @@ def clssifydatabase(filepath):
 
 @app.route("/")
 def index():
+    # target = os.path.join(APP_ROOT, 'uploads/classified.xlsx')
+    # if os.path.isfile(target):
+    try:
+        os.remove('uploads/classified.xlsx')
+    except:
+        print("There are no classified File")
     return render_template('index.html')
 
 
@@ -54,7 +61,7 @@ def ClassifyText():
         result = SVMAR.predict(tweet_content)
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
-    res = 'The tweet ' + str(tweet_content) + ' is ' + str(result)
+    res = [tweet_content,result]
     return render_template('prediction.html', result=res)
 
 
@@ -71,12 +78,16 @@ def classifyProfile():
 
     elif model_name == 'Arabic':
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
+    df = pd.read_excel('uploads/classified.xlsx')
+    l = df.iloc[0:,0]
+    off= df.iloc[0:,1]
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
-    result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
-
+    # result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
+    result = [profile_name, neutral_percent,l,off]
+    
     print('remove file - ', filepath)
-    os.remove(filepath)
-    return render_template('prediction.html', result=result)
+    # os.remove(filepath)
+    return render_template('classifyProfile.html', result=result)
 
     # --------------------- End Writing -----------------------------
 
@@ -85,18 +96,11 @@ def classifyDB():
     target = os.path.join(APP_ROOT, 'uploads\\')
     if not os.path.isdir(target):
         os.mkdir(target)
-    print('*************** After if ***************')
     destination=''
     for file in request.files.getlist("file"):
         print(file)
         filename = file.filename
         destination = "/".join([target, filename])
-        
-        print('******************************')
-        print(destination)
-        print(filename)
-        print('******************************')
-
         file.save(destination)
     print(destination)   
     return clssifydatabase(destination) # run the models on the uploaded model

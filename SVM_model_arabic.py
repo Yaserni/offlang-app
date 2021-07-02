@@ -1,3 +1,4 @@
+import os
 import joblib
 import ReadSheetsFiles as rsf
 import re
@@ -76,7 +77,6 @@ def remove_punctuations(df):
 
 def _remove_punctuations(x):
     x = str(x)
-    # translator = str.maketrans(' ', ' ', punctuations_list)
     translator = str.maketrans(punctuations_list, ' '*len(punctuations_list))
     return x.translate(translator)
 
@@ -125,8 +125,6 @@ def remove_emoji(string):
 
 # -----------------------------------  End Preprocessing -------------------------------------
 
-
-#def predict(text,model,vectorizer):
 def predict(text):
     df = []
     df.append(text)
@@ -136,10 +134,7 @@ def predict(text):
     if len(text.split()) < 2:
         return [0] 
     vec = vectorizer.transform([text]).toarray()
-    #print(text)
     answer = model.predict(vec)
-    # if(answer[0]==1):
-    #print(answer)
     return answer
 
 def classify_DB(filepath):
@@ -148,13 +143,18 @@ def classify_DB(filepath):
     print('End loading')
     counter = 0 # the counter will give us the number of racist tweets
                 # len(db) - count = the number of neutral tweets
-    list=db.iloc[0:,0]
+    list=db.iloc[0:,0] # all sentences 
     db_length = len(list)
+    classifiedList = []
     for text in list:
         c=predict(text)
         counter += c[0]
-    print('the number of offensive tweets in the Database = ',counter, '\n the number of neutral tweets in the Database = ' , db_length - counter)
-
+        classifiedList.append(c[0])
+    df = pd.DataFrame(data=[])
+    df['sentence']=list
+    df['off']=classifiedList
+    df.to_excel('uploads/classified.xlsx',index=False)
+    os.remove(filepath)
     return counter, db_length - counter
 
 

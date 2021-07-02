@@ -1,0 +1,8 @@
+{% extends "base.html" %} {% block head %}
+<title>Database Classification </title>
+{% endblock %} {% block body %}
+<br> {{ result[0] }}% is offensive and {{result[1]}}% is not offensive
+<br>
+<br>
+<a href="{{ url_for('download') }}">Download the classified database</a>
+<br> {% endblock %}

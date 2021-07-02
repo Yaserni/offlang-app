@@ -35,9 +35,7 @@ def remove_spaces(data):
 
 
 # -----------------------------------  End Preprocessing -------------------------------------
-downloadFile=''
 
-# def predict(text,model,vectorizer):
 def predict(text):
     df = []
     df.append(text)
@@ -62,8 +60,6 @@ def classify_DB(filepath):
         c=predict(text)
         counter += c[0]
         classifiedList.append(c[0])
-    global downloadFile
-    downloadFile = filepath
     df = pd.DataFrame(data=[])
     df['sentence']=list
     df['off']=classifiedList
