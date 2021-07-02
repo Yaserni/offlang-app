@@ -105,7 +105,7 @@ def classifyDB():
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():
-    uploads = os.path.join(APP_ROOT, 'uploads\\classified.xlsx')
+    uploads = os.path.join(APP_ROOT, 'uploads/classified.xlsx')
     return send_file(uploads, as_attachment=True)
 
 if __name__ == '__main__':
