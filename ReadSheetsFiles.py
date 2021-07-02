@@ -6,7 +6,7 @@ def readFileFunction(path):
     end=filepath[-1]
     if end == 'csv':
         return pd.read_csv(path)
-    if end == 'xlsx':
+    else:
         return pd.read_excel(path)
     
     

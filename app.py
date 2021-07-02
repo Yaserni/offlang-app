@@ -1,5 +1,6 @@
 import collections
 import re
+from typing import ContextManager
 from flask.helpers import  send_file
 import absorbProfile as absorbprofile
 import os
@@ -26,6 +27,7 @@ def clssifydatabase(filepath):
 
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
     result = [neutral_percent, 100 - neutral_percent]
+
     return render_template('classifyDB.html', result=result)
     
 
@@ -93,8 +95,6 @@ def classifyProfile():
     # result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
     result = [profile_name, neutral_percent]
     
-    print('remove file - ', filepath)
-    # os.remove(filepath)
     return render_template('classifyProfile.html', result=result)
 
     # --------------------- End Writing -----------------------------
@@ -114,8 +114,6 @@ def classifyDB():
     return clssifydatabase(destination) # run the models on the uploaded model
 
 
-
-
 @app.route('/download', methods=['GET', 'POST'])
 def download():
     print("int the download")
@@ -124,6 +122,9 @@ def download():
 
 
 if __name__ == '__main__':
+    target = os.path.join(APP_ROOT, 'uploads')
+    if not (os.path.isdir(target)):
+        os.mkdir(target)
     try:
         os.remove('uploads/class.xlsx')
     except:

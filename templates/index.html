@@ -17,8 +17,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">Tweet</span>
                 </div>
-                <input id="inputClass" name="tweet_content" dir="rtl" type="text" class="form-control"
-                    aria-describedby="addon-wrapping" required>
+                <input id="inputClass" name="tweet_content" placeholder="למשל, ברוכים הבאים" dir="rtl" type="text" class="form-control" aria-describedby="addon-wrapping" required>
                 <br>
 
             </div>
@@ -40,8 +39,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">username:</span>
                 </div>
-                <input id="prof" type="text" name="profile_name" class="form-control " aria-describedby="addon-wrapping"
-                    required>
+                <input id="prof" type="text" name="profile_name" placeholder="for example, netanyahu" class="form-control " aria-describedby="addon-wrapping" required>
             </div>
             <button type="submit" class="btn btn-dark">get result</button>
     </div>
@@ -58,10 +56,10 @@
     </div>
     <div>
         <h3>Upload dataset(xlsx) for analysis </h3>
-        <input id="file-picker" type="file" name="file"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            multiple>
+        <input id="file-picker" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
         <div id="msg"></div>
+        <span style="font-size: small;">The xlsx file should contain text only, one comment/tweet/message/post/etc. per raw.</span>
+        <br>
         <input type="submit" class="btn btn-dark" value="Upload" id="upload-button" disabled>
     </div>
 </form>
@@ -69,31 +67,27 @@
 <script>
     function fulldef_user(t) {
         if ($(t).val() === "Hebrew") {
-            $("#prof").val("netanyahu")
-        }
-        else{
-            $("#prof").val("AlsisiOfficial")
-
+            $("#prof").attr("placeholder", "for example, netanyahu")
+        } else {
+            $("#prof").attr("placeholder", "for example, AlsisiOfficial")
         }
     }
 
     function fulldef(t) {
         if ($(t).val() === "Arabic") {
-            $("#inputClass").val("اهلا وسهلا في الموقع ")
-        }
-        else {
-            $("#inputClass").val("ברוכים הבאים")
+            $("#inputClass").attr("placeholder", "على سبيل المثال, اهلا وسهلا في الموقع ")
+        } else {
+            $("#inputClass").attr("placeholder", "למשל, ברוכים הבאים")
 
         }
 
 
     }
-
 </script>
 
 
 <script>
-    $("#file-picker").change(function () {
+    $("#file-picker").change(function() {
 
         var input = document.getElementById('file-picker');
 
@@ -101,10 +95,10 @@
             var ext = input.files[i].name.substring(input.files[i].name.lastIndexOf('.') + 1).toLowerCase()
 
             if ((ext == 'xlsx')) {
-                $("#msg").text("Files are supported")
+                $("#msg").text("File are supported")
                 $('#upload-button').prop("disabled", false);
             } else {
-                $("#msg").text("Files are NOT supported")
+                $("#msg").text("File are NOT supported")
                 document.getElementById("file-picker").value = "";
                 $('#upload-button').prop("disabled", true);
             }
@@ -113,6 +107,5 @@
 
 
     });
-
 </script>
 {% endblock %}
