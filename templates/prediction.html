@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block head %}
 <title>Prediction</title>
 {% endblock %} {% block body %}
-<br> {{ result.result }}
-<a href="{{ url_for('download', filename=result.filename) }}">Facture</a>
+<br> {{ result }}
+<a href="{{ url_for('download') }}">Facture</a>
 <br> {% endblock %}

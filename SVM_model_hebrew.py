@@ -1,3 +1,4 @@
+import os
 import ReadSheetsFiles as rsf
 import re
 import pandas as pd
@@ -34,6 +35,7 @@ def remove_spaces(data):
 
 
 # -----------------------------------  End Preprocessing -------------------------------------
+downloadFile=''
 
 # def predict(text,model,vectorizer):
 def predict(text):
@@ -60,14 +62,15 @@ def classify_DB(filepath):
         c=predict(text)
         counter += c[0]
         classifiedList.append(c[0])
-    
-    data = [list,classifiedList]
+    global downloadFile
+    downloadFile = filepath
     print('$$$$$data$$$$$$' + filepath)
     print(classifiedList)
     df = pd.DataFrame(data=[])
     df['sentence']=list
     df['off']=classifiedList
-    df.to_excel(filepath)
+    df.to_excel('uploads/classified.xlsx')
+    os.remove(filepath)
     return counter, db_length - counter
 
 def load_svm_model():

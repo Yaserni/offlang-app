@@ -1,4 +1,4 @@
-from flask.helpers import send_file, send_from_directory
+from flask.helpers import  send_file, send_from_directory
 import absorbProfile as absorbprofile
 import pandas as pd
 import os
@@ -12,7 +12,7 @@ app = Flask(__name__)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
-def clssifydatabase(filepath,filename):
+def clssifydatabase(filepath):
     result = "test"
     print(filepath)
     model_name = request.form['model_name']
@@ -25,9 +25,8 @@ def clssifydatabase(filepath,filename):
 
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
     result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
-    os.remove(filepath)
-    res={"result": result,'filename' : filename}
-    return render_template('prediction.html', result=res)
+    # os.remove(filepath)
+    return render_template('prediction.html', result=result)
     
 
 
@@ -82,7 +81,6 @@ def classifyProfile():
 
     # --------------------- End Writing -----------------------------
 
-
 @ app.route('/classifyDB', methods=['POST'])
 def classifyDB():
     target = os.path.join(APP_ROOT, 'uploads\\')
@@ -90,7 +88,6 @@ def classifyDB():
         os.mkdir(target)
     print('*************** After if ***************')
     destination=''
-    filename = ''
     for file in request.files.getlist("file"):
         print(file)
         filename = file.filename
@@ -103,14 +100,14 @@ def classifyDB():
 
         file.save(destination)
     print(destination)   
-    return clssifydatabase(destination,filename) # run the models on the uploaded model
+    return clssifydatabase(destination) # run the models on the uploaded model
 
 
 
-@app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
-def download(filename):
-    uploads = os.path.join(APP_ROOT, 'uploads')
-    return send_from_directory(directory=uploads, filename=filename)
+@app.route('/download', methods=['GET', 'POST'])
+def download():
+    uploads = os.path.join(APP_ROOT, 'uploads\\classified.xlsx')
+    return send_file(uploads, as_attachment=True)
 
 if __name__ == '__main__':
    app.run(debug=True)
