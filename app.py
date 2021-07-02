@@ -86,15 +86,12 @@ def classifyProfile():
 
     elif model_name == 'Arabic':
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
-    df = pd.read_excel('uploads/classified.xlsx')
-    l = df.iloc[0:,0]
-    off= df.iloc[0:,1]
     if offensive_count + non_Offensive == 0:
         error = "the username '"+ profile_name+"' not found or have 0 tweets!!" 
         return render_template('errorPage.html', error=error)
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
     # result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
-    result = [profile_name, neutral_percent,l,off]
+    result = [profile_name, neutral_percent]
     
     print('remove file - ', filepath)
     # os.remove(filepath)
