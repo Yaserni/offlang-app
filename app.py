@@ -69,8 +69,14 @@ def ClassifyText():
 @ app.route('/classifyProfile', methods=['POST'])
 def classifyProfile():
     profile_name = request.form['profile_name']
-    filepath = absorbprofile.get_tweets(profile_name)
-    print(filepath)
+        # return render_template('errorPage.html', error=error)
+    try:
+        filepath = absorbprofile.get_tweets(profile_name)
+        print(filepath)
+    except:
+        error = "Error, Can't absorb from Twitter check again the username " + profile_name
+        return render_template('errorPage.html', error=error)
+
     model_name = request.form['model_name']
 
     if model_name == 'Hebrew':
@@ -81,6 +87,9 @@ def classifyProfile():
     df = pd.read_excel('uploads/classified.xlsx')
     l = df.iloc[0:,0]
     off= df.iloc[0:,1]
+    if offensive_count + non_Offensive == 0:
+        error = "the username '"+ profile_name+"' not found or have 0 tweets!!" 
+        return render_template('errorPage.html', error=error)
     neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
     # result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
     result = [profile_name, neutral_percent,l,off]

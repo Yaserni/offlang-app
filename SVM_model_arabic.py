@@ -131,7 +131,7 @@ def predict(text):
     df = pd.DataFrame(df, columns=['Tweet'])
     text = clean(df)
     text = remove_emoji(text['Tweet'].iloc[0])
-    if len(text.split()) < 2:
+    if len(text.split()) < 1:
         return [0] 
     vec = vectorizer.transform([text]).toarray()
     answer = model.predict(vec)
