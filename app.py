@@ -74,8 +74,6 @@ def classifyProfile():
 
     elif model_name == 'Arabic':
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
-        result_file = pd.read_csv('result.csv')
-        offensive_count, non_Offensive = result_file['res'].iloc[1], result_file['res'].iloc[0]
 
     result ='The number of neutral = '+str(non_Offensive) + ', the number of Offensive ' + str(offensive_count)
 

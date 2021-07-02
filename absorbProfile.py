@@ -1,7 +1,6 @@
 import tweepy
 import pandas as pd
 import numpy as np
-import os
 
 
 # http://www.tweepy.org/
