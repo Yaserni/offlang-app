@@ -22,7 +22,8 @@ def clssifydatabase(filepath):
     elif model_name == 'Arabic':
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
 
-    result ='The number of neutral = '+str(non_Offensive) + ', the number of Offensive ' + str(offensive_count)
+    neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
+    result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
     os.remove(filepath)
     return render_template('prediction.html', result=result)
 
@@ -70,8 +71,8 @@ def classifyProfile():
 
     elif model_name == 'Arabic':
         offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
-
-    result ='The number of neutral = '+str(non_Offensive) + ', the number of Offensive ' + str(offensive_count)
+    neutral_percent = int(non_Offensive/(offensive_count + non_Offensive) * 100)
+    result ='The number of neutral = '+str(neutral_percent) + '%, the number of Offensive = ' + str(100 - neutral_percent) +'%'
 
     print('remove file - ', filepath)
     os.remove(filepath)
