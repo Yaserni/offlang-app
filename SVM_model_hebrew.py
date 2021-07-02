@@ -1,7 +1,7 @@
 import ReadSheetsFiles as rsf
 import re
 import pandas as pd
-
+import joblib
 # -----------------------------------  Preprocessing -------------------------------------
 
 
@@ -35,8 +35,8 @@ def remove_spaces(data):
 
 # -----------------------------------  End Preprocessing -------------------------------------
 
-# predict(text):
-def predict(text,model,vectorizer):
+# def predict(text,model,vectorizer):
+def predict(text):
     df = []
     df.append(text)
     df = pd.DataFrame(df, columns=['Post'])
@@ -46,11 +46,7 @@ def predict(text,model,vectorizer):
         return [0] 
 
     vec = vectorizer.transform([text]).toarray()
-    return [0]
-    print(vec.shape)
     answer = model.predict(vec)
-    if(answer[0]==1):
-        print(text)
     return answer
 
 def classify_DB(filepath):
@@ -69,5 +65,10 @@ def classify_DB(filepath):
 
     return counter, db_length - counter
 
+def load_svm_model():
+    # Load SVM model
+    model = joblib.load("finalized_model_he.sav")
+    vectorizer = joblib.load("vectorizer_he.sav")
+    return model, vectorizer
 
-# model, vectorizer = load_svm_model()
+model, vectorizer = load_svm_model()

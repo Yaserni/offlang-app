@@ -1,10 +1,10 @@
+import absorbProfile as absorbprofile
 import pandas as pd
 import os
 from flask import Flask, render_template, request
 import pandas as pd
 import SVM_model_arabic as SVMAR
 import SVM_model_hebrew as SVMHE
-import joblib
 
 app = Flask(__name__)
 
@@ -50,17 +50,11 @@ def ClassifyText():
     tweet_content = request.form['tweet_content']
     
     if model_name == 'Hebrew':
-        svm_model_he = joblib.load("finalized_model_he.sav")
-        vectorizer_he = joblib.load("vectorizer_he.sav")
-        result = SVMHE.predict(tweet_content,svm_model_he,vectorizer_he)
+        result = SVMHE.predict(tweet_content)
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
     if model_name == 'Arabic':
-        # svm_model_ar = joblib.load("arabic.sav")
-        # vectorizer_ar = joblib.load("arvectorizer.sav")
-        # result = SVMAR.predict(tweet_content,svm_model_ar,vectorizer_ar)
         result = SVMAR.predict(tweet_content)
-        
         result = 'Not Offensive' if (result == [0]) else 'Offensive'
 
     res = 'The tweet ' + str(tweet_content) + ' is ' + str(result)
@@ -71,15 +65,15 @@ def ClassifyText():
 @ app.route('/classifyProfile', methods=['POST'])
 def classifyProfile():
     profile_name = request.form['profile_name']
-    filepath = ap.get_tweets(profile_name)
+    filepath = absorbprofile.get_tweets(profile_name)
     print(filepath)
     model_name = request.form['model_name']
 
     if model_name == 'Hebrew':
-        offensive_count, non_Offensive = svm_model_he.classify_DB(filepath)
+        offensive_count, non_Offensive = SVMHE.classify_DB(filepath)
 
     elif model_name == 'Arabic':
-        os.system('python load_arabic_bert.py 2 '+ filepath)
+        offensive_count, non_Offensive = SVMAR.classify_DB(filepath)
         result_file = pd.read_csv('result.csv')
         offensive_count, non_Offensive = result_file['res'].iloc[1], result_file['res'].iloc[0]
 

@@ -27,12 +27,11 @@ def get_tweets(username):
     for tweet in tweepy.Cursor(api.user_timeline, screen_name = username).items(number_of_tweets):
         # create array of tweet information:  tweet id, date/time, text
         tweets_for_csv.append([tweet.text])
-    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    # APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     # write to a new csv file from the array of tweets
-    outfile = APP_ROOT + "\\uploads\\"+username+"_tweets.xlsx"
-    print("writing to " + outfile)
+    outfile = "profile_tweets.xlsx"
+    # print("writing to " + outfile)
     numpy_data = np.array(tweets_for_csv)
     df = pd.DataFrame(data=numpy_data, columns=["info"])
-    
     df.to_excel(outfile,index=False)
     return outfile
