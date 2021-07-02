@@ -64,8 +64,6 @@ def classify_DB(filepath):
         classifiedList.append(c[0])
     global downloadFile
     downloadFile = filepath
-    print('$$$$$data$$$$$$' + filepath)
-    print(classifiedList)
     df = pd.DataFrame(data=[])
     df['sentence']=list
     df['off']=classifiedList
