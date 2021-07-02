@@ -1,6 +1,5 @@
-from flask.helpers import  send_file, send_from_directory
+from flask.helpers import  send_file
 import absorbProfile as absorbprofile
-import pandas as pd
 import os
 from flask import Flask, render_template, request
 import pandas as pd

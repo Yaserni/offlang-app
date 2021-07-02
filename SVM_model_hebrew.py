@@ -69,7 +69,7 @@ def classify_DB(filepath):
     df = pd.DataFrame(data=[])
     df['sentence']=list
     df['off']=classifiedList
-    df.to_excel('uploads/classified.xlsx')
+    df.to_excel('uploads/classified.xlsx',index=False)
     os.remove(filepath)
     return counter, db_length - counter
 
