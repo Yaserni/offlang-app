@@ -62,8 +62,8 @@
         <br>
     </div>
     <div>
-        <h3>Upload database for analysis</h3>
-        <input id="file-picker" type="file" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple>
+        <h3>Upload dataset(xlsx) for analysis </h3>
+        <input id="file-picker" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple>
         <div id="msg"></div>
         <input type="submit" class="btn btn-dark" value="Upload" id="upload-button" disabled>
     </div>
@@ -77,7 +77,7 @@
         for (var i = 0; i < input.files.length; i++) {
             var ext = input.files[i].name.substring(input.files[i].name.lastIndexOf('.') + 1).toLowerCase()
 
-            if ((ext == 'xlsx') || (ext == 'csv')) {
+            if ((ext == 'xlsx')) {
                 $("#msg").text("Files are supported")
                 $('#upload-button').prop("disabled", false);
             } else {
