@@ -3,6 +3,10 @@ import ReadSheetsFiles as rsf
 import re
 import pandas as pd
 import joblib
+
+
+
+
 # -----------------------------------  Preprocessing -------------------------------------
 
 
@@ -63,7 +67,7 @@ def classify_DB(filepath):
     df = pd.DataFrame(data=[])
     df['sentence']=list
     df['off']=classifiedList
-    df.to_excel('uploads/classified.xlsx',index=False)
+    df.to_excel(F'uploads/class.xlsx',index=False)
     os.remove(filepath)
     return counter, db_length - counter
 

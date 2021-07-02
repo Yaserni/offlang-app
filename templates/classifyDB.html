@@ -4,5 +4,8 @@
 <br> {{ result[0] }}% is offensive and {{result[1]}}% is not offensive
 <br>
 <br>
-<a href="{{ url_for('download') }}">Download the classified database</a>
+<form action="{{ url_for('download') }}" method="POST">
+
+    <button type="submit">download</button>
+</form>
 <br> {% endblock %}

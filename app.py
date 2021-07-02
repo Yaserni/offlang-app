@@ -35,7 +35,7 @@ def clssifydatabase(filepath):
 @app.route("/")
 def index():
     try:
-        os.remove('uploads/classified.xlsx')
+        os.remove('uploads/class.xlsx')
     except:
         print("There are no classified File")
     return render_template('index.html')
@@ -44,7 +44,7 @@ def index():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     try:
-        os.remove('uploads/classified.xlsx')
+        os.remove('uploads/class.xlsx')
     except:
         print("There are no classified File")
     return render_template('index.html')
@@ -104,30 +104,33 @@ def classifyProfile():
 
 @ app.route('/classifyDB', methods=['POST'])
 def classifyDB():
-    target = os.path.join(APP_ROOT, 'uploads\\')
-    if not os.path.isdir(target):
+    target = os.path.join(APP_ROOT, 'uploads')
+    if not (os.path.isdir(target)):
         os.mkdir(target)
+        print("done")
     destination=''
     for file in request.files.getlist("file"):
-        print(file)
         filename = file.filename
         destination = "/".join([target, filename])
         file.save(destination)
-    print(destination)   
+    print("the des" + destination)   
     return clssifydatabase(destination) # run the models on the uploaded model
+
 
 
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():
-    uploads = os.path.join(APP_ROOT, 'uploads/classified.xlsx')
-    return send_file(uploads, as_attachment=True)
+    print("int the download")
+    uploads = 'uploads/class.xlsx'
+    return send_file(uploads)
+
 
 if __name__ == '__main__':
     try:
-        os.remove('uploads/classified.xlsx')
+        os.remove('uploads/class.xlsx')
     except:
         print("There are no classified File")
-    app.run(debug=True)
+    app.run()
 
 
