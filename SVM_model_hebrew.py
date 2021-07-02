@@ -50,19 +50,24 @@ def predict(text):
     return answer
 
 def classify_DB(filepath):
-    print('Loading Database')
-
     db = rsf.readFileFunction(filepath) # read file function - more general - it works according to the file (excel or csv)
-    print('End loading')
     counter = 0 # the counter will give us the number of racist tweets
                 # len(db) - count = the number of neutral tweets
-    list=db.iloc[0:,0]
+    list=db.iloc[0:,0] # all sentences 
     db_length = len(list)
+    classifiedList = []
     for text in list:
         c=predict(text)
         counter += c[0]
-    print('the number of offensive tweets in the Database = ',counter, '\n the number of neutral tweets in the Database = ' , db_length - counter)
-
+        classifiedList.append(c[0])
+    
+    data = [list,classifiedList]
+    print('$$$$$data$$$$$$' + filepath)
+    print(classifiedList)
+    df = pd.DataFrame(data=[])
+    df['sentence']=list
+    df['off']=classifiedList
+    df.to_excel(filepath)
     return counter, db_length - counter
 
 def load_svm_model():
